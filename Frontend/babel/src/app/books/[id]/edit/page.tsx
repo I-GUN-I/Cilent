@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation"; // Import useParams for accessing route parameters
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
 
 const EditBook = () => {
   const router = useRouter();
-  const { id } = useParams(); // Use useParams to access the route parameters
+  const { id } = useParams();
   const [book, setBook] = useState<any>(null);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -14,12 +13,10 @@ const EditBook = () => {
   const [color, setColor] = useState("#ff5733");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
-    if (!id) return; // Return if no id is found
+    if (!id) return;
 
-    setLoading(true);
     fetch(`http://localhost:8000/books/api/${id}/`)
       .then((res) => {
         if (!res.ok) {
@@ -33,11 +30,9 @@ const EditBook = () => {
         setAuthor(data.author);
         setContent(data.content);
         setColor(data.color);
-        setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
-        setLoading(false);
       });
   }, [id]);
 
@@ -59,32 +54,44 @@ const EditBook = () => {
         throw new Error("Failed to update book");
       }
 
-      router.push(`/books/${id}`); // Redirect to the book detail page after update
+      router.push(`/books/${id}`);
     } catch (err: any) {
       setError(err.message);
     }
   };
 
-  // Show a loading message while fetching the book details
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   if (!book) {
-    return <div>No book found.</div>;
+    <div
+      className="absolute inset-0 bg-cover bg-center filter blur-md opacity-40 z-0"
+      style={{
+        backgroundImage:
+          "url('https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg')",
+      }}
+    />
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <div className="bg-white p-8 shadow-lg rounded-lg max-w-lg w-full">
-        <h2 className="text-2xl font-bold text-center mb-6">Edit Book</h2>
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <main className="min-h-screen p-10 flex flex-col items-center">
+      <div
+        className="absolute inset-0 bg-cover bg-center filter blur-md opacity-40 z-0"
+        style={{
+          backgroundImage:
+            "url('https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg')",
+        }}
+      />
+      <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
+        Edit Book
+      </h1>
+
+      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+      <div className="relative bg-white text-black bg-opacity-70 p-8 shadow-lg rounded-lg max-w-3xl w-full z-10">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-700">Title</label>
+            <label className="block text-gray-700 font-bold">Title:</label>
             <input
               type="text"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md w-80 mt-2"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -92,10 +99,10 @@ const EditBook = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Author</label>
+            <label className="block text-gray-700 font-bold">Author:</label>
             <input
               type="text"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md w-auto mt-2"
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               required
@@ -103,46 +110,58 @@ const EditBook = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Content</label>
+            <label className="block text-gray-700 font-bold">Content:</label>
             <textarea
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md h-48 mt-2"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               required
-            ></textarea>
+            />
           </div>
 
           <div>
-            <label className="block text-gray-700">Book Cover Color</label>
+            <label className="block text-gray-700 font-bold">Book Cover Color:</label>
             <input
               type="color"
-              className="w-full h-10 rounded-md"
+              className="w-full h-10 rounded-md w-10 mt-2"
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
           </div>
 
           <div>
-            <label className="block text-gray-700">Password</label>
+            <label className="block text-gray-700 font-bold">Password:</label>
             <input
               type="password"
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md w-80 mt-2"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <p className="text-xs text-gray-500">This password will be used to confirm the update.</p>
+            <p className="text-xs text-gray-500 mt-1">
+              This password will be used to confirm the update.
+            </p>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-          >
-            Update Book
-          </button>
+          <div className="flex justify-between">
+            <button
+              type="button"
+              onClick={() => router.push("/books")}
+              className="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 transition"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+            >
+              Update Book
+            </button>
+          </div>
+
         </form>
       </div>
-    </div>
+    </main>
   );
 };
 

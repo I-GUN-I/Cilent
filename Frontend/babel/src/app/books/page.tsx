@@ -37,30 +37,20 @@ const Library = () => {
         <p className="text-center text-red-500">{error}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-center bg-stone-200 p-8 rounded-lg shadow-2xl border border-gray-800">
-          {books.length > 0 ? (
-            books.map((book) => (
-              <Link key={book.id} href={`/books/${book.id}`}>
-                <BookCard
-                  title={book.title}
-                  author={book.author}
-                  color={book.color}
-                />
-              </Link>
-            ))
-          ) : (
-            <p className="text-center text-red-500 col-span-full">
-              No books available
-            </p>
-          )}
-          
-          {/* Ensure the Add Book link is clickable */}
           <Link
             href="/books/create"
-            className="relative w-40 h-56 rounded-md shadow-xl border-2 border-dashed border-gray-600 flex flex-col justify-center items-center text-gray-500 hover:bg-yellow-500 hover:border-gray-300 transition font-serif z-10"
+            className="relative w-40 h-56 rounded-md shadow-xl border-2 border-dashed border-gray-900 flex flex-col justify-center items-center text-gray-500 hover:bg-yellow-300 hover:border-gray-400 transition font-serif z-10"
           >
             <span className="text-6xl">+</span>
             <p className="mt-2 text-sm">Add Your Book</p>
           </Link>
+
+          {books.map((book) => (
+              <Link key={book.id} href={`/books/${book.id}`}>
+                <BookCard title={book.title} author={book.author} color={book.color} />
+              </Link>
+            ))}
+          
         </div>
       )}
     </main>

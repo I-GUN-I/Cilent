@@ -14,7 +14,7 @@ const CreateBook = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null); // Clear error before submission
+        setError(null); //Clear error before submission
 
         const newBook = { title, author, content, color, password };
 
@@ -32,7 +32,7 @@ const CreateBook = () => {
                 throw new Error(data.error || "Failed to create book");
             }
 
-            router.push(`/books/${data.id}`); // Redirect to book detail page
+            router.push(`/books/${data.id}`); //Redirect to book detail page
         } catch (err: any) {
             setError(err.message);
         }
