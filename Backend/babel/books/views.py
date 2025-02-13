@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404
 from .models import Book
 from .serializers import BookSerializer, BookCreateSerializer
 from rest_framework.permissions import AllowAny
-from django.contrib.auth.hashers import make_password
 
 class BookListAPI(APIView):
     permission_classes = [AllowAny]

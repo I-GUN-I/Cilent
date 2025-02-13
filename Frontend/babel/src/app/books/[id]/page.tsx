@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 
 interface Book {
-  id: number;
   title: string;
   author: string;
   content: string;
@@ -12,13 +11,11 @@ interface Book {
 }
 
 const BookDetail = () => {
-  const { id } = useParams(); // Get book ID from URL
+  const { id } = useParams(); //Get book ID from URL
   const [book, setBook] = useState<Book | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
-
     fetch(`http://localhost:8000/books/api/${id}/`)
       .then((res) => {
         if (!res.ok) {
@@ -30,15 +27,11 @@ const BookDetail = () => {
       .catch((err) => setError(err.message));
   }, [id]);
 
-
-  if (error) {
-    return <p className="text-center text-red-500">{error}</p>;
-  }
-
   if (!book) {
     return (
       <main className="min-h-screen p-10 flex flex-col items-center">
         {/* Background image */}
+        <p className="text-center text-red-500">{error}</p>
         <div
           className="absolute inset-0 bg-cover bg-center filter blur-md opacity-40 z-0"
           style={{

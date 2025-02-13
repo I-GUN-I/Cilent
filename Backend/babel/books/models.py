@@ -15,6 +15,3 @@ class Book(models.Model):
 
     def check_password(self, raw_password):
         return check_password(raw_password, self.password_hash)
-    
-    def __str__(self):
-        return f"{self.title} by {self.author}"

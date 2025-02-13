@@ -33,26 +33,21 @@ const Library = () => {
       <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         The Library of Babel
       </h1>
-      {error ? (
-        <p className="text-center text-red-500">{error}</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-center bg-stone-200 p-8 rounded-lg shadow-2xl border border-gray-800">
-          <Link
-            href="/books/create"
-            className="relative w-40 h-56 rounded-md shadow-xl border-2 border-dashed border-gray-900 flex flex-col justify-center items-center text-gray-500 hover:bg-yellow-300 hover:border-gray-400 transition font-serif z-10"
-          >
-            <span className="text-6xl">+</span>
-            <p className="mt-2 text-sm">Add Your Book</p>
+      <p className="text-center text-red-500 mb-10">{error}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-center bg-stone-200 p-8 rounded-lg shadow-2xl border border-gray-800">
+        <Link
+          href="/books/create"
+          className="relative w-40 h-56 rounded-md shadow-xl border-2 border-dashed border-gray-900 flex flex-col justify-center items-center text-gray-500 hover:bg-yellow-300 hover:border-gray-400 transition font-serif z-10"
+        >
+          <span className="text-6xl">+</span>
+          <p className="mt-2 text-sm">Add Your Book</p>
+        </Link>
+        {books.map((book) => (
+          <Link key={book.id} href={`/books/${book.id}`}>
+            <BookCard title={book.title} author={book.author} color={book.color} />
           </Link>
-
-          {books.map((book) => (
-              <Link key={book.id} href={`/books/${book.id}`}>
-                <BookCard title={book.title} author={book.author} color={book.color} />
-              </Link>
-            ))}
-          
-        </div>
-      )}
+        ))}
+      </div>
     </main>
   );
 };
