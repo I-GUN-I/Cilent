@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
+
 
 const EditBook = () => {
   const router = useRouter();
@@ -34,6 +36,7 @@ const EditBook = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     const updatedBook = { title, author, content, color, password };
   
     fetch(`http://localhost:8000/books/api/${id}/`, {
@@ -49,9 +52,11 @@ const EditBook = () => {
         }
         return res.json();
       })
+
       .then(() => {
         router.push(`/books/${id}`);
       })
+      
       .catch((err) => {
         setError(err.message);
       });
@@ -59,14 +64,17 @@ const EditBook = () => {
   
 
   return (
-    <main className="min-h-screen p-10 flex flex-col items-center">
-      <div
-        className="absolute inset-0 bg-cover bg-center filter blur-md opacity-40 z-0"
-        style={{
-          backgroundImage:
-            "url('https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg')",
-        }}
-      />
+    <main className="relative min-h-screen p-10 flex flex-col items-center">
+      <div className="inset-0 w-full h-full">
+        <Image
+          src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
+          alt="Library Background"
+          fill
+          className="opacity-40 blur-md object-cover"
+          priority
+        />
+      </div>
+
       <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         Edit Book
       </h1>
@@ -111,7 +119,7 @@ const EditBook = () => {
             <label className="block text-gray-700 font-bold">Book Cover Color:</label>
             <input
               type="color"
-              className="w-full h-10 rounded-md mt-2"
+              className="w-10 h-10 rounded-md mt-2"
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />

@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import Image from "next/image";
 import BookCard from "@/components/BookCard";
 import Link from "next/link";
 
@@ -18,32 +19,41 @@ const Library = () => {
   useEffect(() => {
     fetch("http://localhost:8000/books/api/")
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch books");
-        }
+        if (!res.ok) throw new Error("Failed to fetch books");
         return res.json();
       })
       .then((data) => setBooks(data))
       .catch((err) => setError(err.message));
   }, []);
 
-  const filteredBooks = books.filter((book) => {
-    return book.title.toLowerCase().includes(search.toLowerCase()) || book.author.toLowerCase().includes(search.toLowerCase());
-  });
-  
+  const filteredBooks = useMemo(() => {
+    return books.filter((book) =>
+      book.title.toLowerCase().includes(search.toLowerCase()) ||
+      book.author.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [books, search]);
+
   return (
-    <main className="min-h-screen p-10 flex flex-col items-center">
-      <div className="absolute inset-0 bg-cover bg-center filter blur-md opacity-40 z-0"
-        style={{ backgroundImage: "url('https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg')" }} />
+    <main className="relative min-h-screen p-10 flex flex-col items-center">
+      <div className="inset-0 w-full h-full">
+        <Image
+          src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
+          alt="Library Background"
+          fill
+          className="opacity-40 blur-md object-cover"
+          priority
+        />
+      </div>
+
       <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-8 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         The Library of Babel
       </h1>
-      
+
       <div className="mb-6 w-full max-w-sm z-20 opacity-30">
         <input
           type="text"
           placeholder="Search"
-          className="w-full p-2 bg-white-700 text-black rounded-md mt-2 mb-2"
+          className="w-full p-2 bg-white text-black rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
