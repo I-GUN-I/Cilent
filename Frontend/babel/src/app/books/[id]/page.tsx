@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-
+// Book object type
 interface Book {
   title: string;
   author: string;
@@ -13,40 +13,43 @@ interface Book {
 
 const BookDetail = () => {
   const { id } = useParams(); //Get book ID from URL
-  const [book, setBook] = useState<Book | null>(null);
+  const [book, setBook] = useState<Book | null>(null); // Book object
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/books/api/${id}/`)
+    fetch(`http://localhost:8000/books/api/${id}/`) //Fetch book object with id from url
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch book details");
+          throw new Error("Failed to fetch book details"); //Throw error if fail to fetch
         }
-        return res.json();
+        return res.json(); // JSON to object
       })
-      .then((data) => setBook(data))
-      .catch((err) => setError(err.message));
-  }, [id]);
+      .then((data) => setBook(data)) //Set book object
+      .catch((err) => setError(err.message)); // Set error message
+  }, []);
 
-  if (!book) {
+  if (!book) { // If book is null only display background image
     return (
-    <main className="relative min-h-screen p-10 flex flex-col items-center">
-      <div className="inset-0 w-full h-full">
-        <Image
-          src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
-          alt="Library Background"
-          fill
-          className="opacity-40 blur-md object-cover"
-          priority
-        />
-      </div>
+      <main className="relative min-h-screen p-10 flex flex-col items-center">
+        {/* Background Image*/}
+        <div className="inset-0 w-full h-full">
+          <Image
+            src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
+            alt="Library Background"
+            fill
+            className="opacity-40 blur-md object-cover"
+            priority
+          />
+        </div>
       </main>
     );
   }
 
   return (
+    // Display Book 'ID' detail
     <main className="relative min-h-screen p-10 flex flex-col items-center">
       <div className="inset-0 w-full h-full">
+        {/* Background Image*/}
         <Image
           src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
           alt="Library Background"
@@ -56,7 +59,7 @@ const BookDetail = () => {
         />
       </div>
 
-      {/* Book details container */}
+      {/* Book details container, get border color from book data*/}
       <div
         className="relative w-full max-w-3xl p-8 bg-white text-black bg-opacity-70 rounded-lg shadow-xl border border-gray-700 z-10"
         style={{ borderColor: book.color, borderWidth: '12px' }}
@@ -64,7 +67,7 @@ const BookDetail = () => {
         {/* Error message*/}
         <p className="text-center text-red-500">{error}</p>
 
-        {/* Navigation links */}
+        {/* Navigation links (Cancel and Edit)*/}
         <div className="flex justify-between">
           <Link href="/books" className="text-gray-600 hover:text-gray-800 font-mono">
             &lt; Back
@@ -74,10 +77,12 @@ const BookDetail = () => {
           </Link>
         </div>
 
-        {/*Book Content */}
-        <h1 className="text-4xl font-bold text-center mb-4 font-serif">{book.title}</h1>
-        <h2 className="text-lg text-center mb-6 italic font-sans">By {book.author}</h2>
-        <p className="leading-relaxed font-mono">{book.content}</p>
+        {/*Book Content Breakword in-case the text is looooooooooooooog*/}
+        <div className="max-w-full break-words">
+          <h1 className="text-4xl font-bold text-center mb-4 font-serif">{book.title}</h1>
+          <h2 className="text-lg text-center mb-6 italic font-sans">By {book.author}</h2>
+          <p className="leading-relaxed font-mono break-words">{book.content}</p>
+        </div>
       </div>
     </main>
   );

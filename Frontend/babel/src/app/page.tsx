@@ -3,7 +3,9 @@ import Image from "next/image";
 
 const Enter = () => {
   return (
+    // Main that take up full viewport contain item in flex container and center them
     <main className="relative min-h-screen flex flex-col items-center justify-center text-center p-10">
+      {/* Background Image with Image NextJS optimization */}
       <div className="inset-0 w-full h-full">
         <Image
           src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa859f04f-c4b2-46c4-95a1-ba57ba44d14a_2560x1535.jpeg"
@@ -14,6 +16,7 @@ const Enter = () => {
         />
       </div>
 
+      {/* A text box tell user what is Library of Babel and what they can do in this web */}
       <div className="relative z-10 max-w-3xl bg-white bg-opacity-80 p-10 rounded-lg shadow-lg">
         <h1 className="text-5xl font-bold text-[#4a2c19] drop-shadow-lg font-serif mb-6">
           The Library of Babel
@@ -32,7 +35,8 @@ const Enter = () => {
           and the words you leave behind forever in the infinity.
         </p>
 
-        <Link href="/books">
+        {/* A button that send user to book page using Link from NextJS with prefetch*/}
+        <Link href="/books" prefetch={true}>
           <button className="bg-amber-700 text-white px-8 py-4 text-xl font-semibold rounded-lg shadow-lg border border-gray-900 
             hover:bg-amber-900 hover:shadow-2xl transition-all duration-300">
             Enter the Library

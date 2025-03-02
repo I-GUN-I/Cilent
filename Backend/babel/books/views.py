@@ -10,7 +10,7 @@ class BookListAPI(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        books = Book.objects.all()
+        books = Book.objects.all().order_by('-id').values()
         serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
     

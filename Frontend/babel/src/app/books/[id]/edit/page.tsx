@@ -8,7 +8,7 @@ import Image from "next/image";
 const EditBook = () => {
   const router = useRouter();
   const { id } = useParams(); // Get book ID from URL
-  
+  //Book detail data variable  
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
@@ -17,28 +17,29 @@ const EditBook = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/books/api/${id}/`)
+    fetch(`http://localhost:8000/books/api/${id}/`) //Get book detail data
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch book details");
+          throw new Error("Failed to fetch book details"); //Throw error if fail to fetch
         }
         return res.json();
       })
-
+      // Set book detail
       .then((data) => {
         setTitle(data.title);
         setAuthor(data.author);
         setContent(data.content);
         setColor(data.color);
       })
+
       .catch((err) => setError(err.message));
-  }, [id]); //Runs when 'id' changes
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     const updatedBook = { title, author, content, color, password };
-  
+    // Patch the new data
     fetch(`http://localhost:8000/books/api/${id}/`, {
       method: "PATCH",
       headers: {
@@ -48,13 +49,13 @@ const EditBook = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to update book");
+          throw new Error("Failed to update book, is your password correct?"); //Throw error if fail to update, password 
         }
         return res.json();
       })
 
       .then(() => {
-        router.push(`/books/${id}`);
+        router.push(`/books/${id}`); // Push to detail page after update
       })
       
       .catch((err) => {
@@ -64,6 +65,7 @@ const EditBook = () => {
   
 
   return (
+    // Edit page for getting update book data, check for password to allow update
     <main className="relative min-h-screen p-10 flex flex-col items-center">
       <div className="inset-0 w-full h-full">
         <Image
@@ -78,7 +80,7 @@ const EditBook = () => {
       <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         Edit Book
       </h1>
-      <p className="text-red-500 text-center mb-4">{error}</p>
+      <p className="text-red-500 text-center mb-2">{error}</p>
 
       <div className="relative bg-white text-black bg-opacity-70 p-8 shadow-lg rounded-lg max-w-3xl w-full z-10">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -87,7 +89,8 @@ const EditBook = () => {
             <label className="block text-gray-700 font-bold">Title:</label>
             <input
               type="text"
-              className="w-full p-2 border rounded-md mt-2"
+              className="p-3 border-2 border-gray-300 rounded-lg w-full mt-2 focus:ring-2 
+              focus:ring-amber-400 focus:outline-none transition duration-200 opacity-90"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -98,7 +101,8 @@ const EditBook = () => {
             <label className="block text-gray-700 font-bold">Author:</label>
             <input
               type="text"
-              className="w-full p-2 border rounded-md mt-2"
+              className="p-3 border-2 border-gray-300 rounded-lg w-full mt-2 focus:ring-2 
+              focus:ring-amber-400 focus:outline-none transition duration-200 opacity-90"
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               required
@@ -108,7 +112,8 @@ const EditBook = () => {
           <div>
             <label className="block text-gray-700 font-bold">Content:</label>
             <textarea
-              className="w-full p-2 border rounded-md h-48 mt-2"
+              className="p-3 h-80 border-2 border-gray-300 rounded-lg w-full mt-2 focus:ring-2 
+              focus:ring-amber-400 focus:outline-none transition duration-200 opacity-90"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               required
@@ -119,7 +124,8 @@ const EditBook = () => {
             <label className="block text-gray-700 font-bold">Book Cover Color:</label>
             <input
               type="color"
-              className="w-10 h-10 rounded-md mt-2"
+              className="h-10 rounded-md w-10 mt-2 focus:ring-2 
+              focus:ring-stone-400 focus:outline-none transition duration-200"
               value={color}
               onChange={(e) => setColor(e.target.value)}
             />
@@ -129,7 +135,8 @@ const EditBook = () => {
             <label className="block text-gray-700 font-bold">Password:</label>
             <input
               type="password"
-              className="w-full p-2 border rounded-md mt-2"
+              className="p-3 border-2 border-gray-300 rounded-lg w-full mt-2 focus:ring-2 
+              focus:ring-amber-400 focus:outline-none transition duration-200 opacity-90"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -150,9 +157,9 @@ const EditBook = () => {
 
             <button
               type="submit"
-              className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+              className="bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 transition"
             >
-              Update Book
+              Update
             </button>
           </div>
 
