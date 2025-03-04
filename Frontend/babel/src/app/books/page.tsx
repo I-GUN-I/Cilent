@@ -63,6 +63,7 @@ const Library = () => {
         <input
           type="text"
           placeholder="Search"
+          aria-label="Search books"
           className="w-full p-2 bg-white text-black rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -72,9 +73,11 @@ const Library = () => {
       {/* Display book cards which also are Link, first one will be a create card that will send user to create page 
           the rest will be book card that if click will send user to that book detail page*/}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-center bg-stone-200 p-8 rounded-lg shadow-2xl border border-gray-800">
+        {/* The create card*/}
         <Link
           href="/books/create"
           className="relative w-40 h-56 rounded-md shadow-xl border-2 border-dashed border-gray-900 flex flex-col justify-center items-center text-gray-500 hover:bg-yellow-300 hover:border-gray-400 transition font-serif z-10"
+          aria-label="Add books"
         >
           <span className="text-6xl">+</span>
           <p className="mt-2 text-sm">Add Your Book</p>

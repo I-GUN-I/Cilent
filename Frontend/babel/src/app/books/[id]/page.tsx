@@ -70,19 +70,19 @@ const BookDetail = () => {
 
         {/* Navigation link, back to books page and go to edit page*/}
         <div className="flex justify-between">
-          <Link href="/books" className="text-gray-600 hover:text-gray-800 font-mono">
+          <Link href="/books" className="text-gray-600 hover:text-gray-800 font-mono" aria-label="Go Back">
             &lt; Back
           </Link>
-          <Link href={`/books/${id}/edit`} className="text-gray-600 hover:text-gray-800 font-mono">
+          <Link href={`/books/${id}/edit`} className="text-gray-600 hover:text-gray-800 font-mono" aria-label="Edit the book">
             Edit &gt;
           </Link>
         </div>
 
         {/*Book Content Breakword in-case the text is looooooooooooooog*/}
         <div className="max-w-full break-words">
-          <h1 className="text-4xl font-bold text-center mb-4 font-serif">{book.title}</h1>
-          <h2 className="text-lg text-center mb-6 italic font-sans">By {book.author}</h2>
-          <p className="leading-relaxed font-mono break-words">{book.content}</p>
+          <h1 className="text-4xl font-bold text-center mb-4 font-serif" aria-label="Book title">{book.title}</h1>
+          <h2 className="text-lg text-center mb-6 italic font-sans" aria-label="Book author">By {book.author}</h2>
+          <p className="leading-relaxed font-mono break-words" aria-label="Book content">{book.content}</p>
         </div>
       </div>
     </main>

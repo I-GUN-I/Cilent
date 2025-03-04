@@ -100,7 +100,8 @@ const CreateBook = () => {
         />
       </div>
 
-      <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
+      <h1 aria-label="Write your book" 
+      className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         Write your book
       </h1>
 
@@ -119,6 +120,7 @@ const CreateBook = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              aria-label="The title" 
             />
           </div>
 
@@ -134,6 +136,7 @@ const CreateBook = () => {
                 setAuthor(e.target.value);
               }}
               required
+              aria-label="The author" 
             />
           </div>
 
@@ -148,6 +151,7 @@ const CreateBook = () => {
                 setContent(e.target.value);
               }}
               required
+              aria-label="The content" 
             />
           </div>
 
@@ -160,6 +164,7 @@ const CreateBook = () => {
               focus:ring-stone-400 focus:outline-none transition duration-200"
               value={color}
               onChange={(e) => setColor(e.target.value)}
+              aria-label="Color of the book" 
             />
           </div>
 
@@ -175,6 +180,7 @@ const CreateBook = () => {
                 setPassword(e.target.value);
               }}
               required
+              aria-label="Password of the book" 
             />
             <p className="text-xs text-gray-500 mt-1">
               This password will be needed when you want to edit your book.
@@ -186,6 +192,7 @@ const CreateBook = () => {
             {/*Push user back to books page if cancel*/}
             <button
               type="button"
+              aria-label="Cancel" 
               onClick={() => router.push("/books")}
               className="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 transition"
             >
@@ -195,6 +202,7 @@ const CreateBook = () => {
             {/* Random Book Button */}
             <button
               type="button"
+              aria-label="Generate The Book" 
               onClick={generateBook}
               className="bg-violet-500 text-white py-2 px-4 rounded-md hover:bg-violet-600 transition"
             >
@@ -204,6 +212,7 @@ const CreateBook = () => {
             {/*Create the book*/}
             <button
               type="submit"
+              aria-label="Finish writing The Book" 
               className="bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 transition"
             >
               Finish

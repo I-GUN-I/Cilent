@@ -38,8 +38,8 @@ const Enter = () => {
 
         {/* A button that send user to book page using Link from NextJS with prefetch*/}
         <Link href="/books" prefetch={true}>
-          <button className="bg-amber-700 text-white px-8 py-4 text-xl font-semibold rounded-lg shadow-lg border border-gray-900 
-            hover:bg-amber-900 hover:shadow-2xl transition-all duration-300">
+          <button className="bg-amber-700 text-white px-8 py-4 text-xl font-semibold rounded-lg shadow-lg border border-gray-900
+            hover:bg-amber-900 hover:shadow-2xl transition-all duration-300" aria-label="Enter the Library">
             Enter the Library
           </button>
         </Link>

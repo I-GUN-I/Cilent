@@ -78,7 +78,8 @@ const EditBook = () => {
         />
       </div>
 
-      <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
+      <h1 aria-label="Edit Book"
+      className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         Edit Book
       </h1>
       
@@ -98,6 +99,7 @@ const EditBook = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              aria-label="Edit Book Title"
             />
           </div>
 
@@ -111,6 +113,7 @@ const EditBook = () => {
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               required
+              aria-label="Edit Book Author"
             />
           </div>
 
@@ -123,6 +126,7 @@ const EditBook = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               required
+              aria-label="Edit Book Content"
             />
           </div>
           
@@ -135,10 +139,11 @@ const EditBook = () => {
               focus:ring-stone-400 focus:outline-none transition duration-200"
               value={color}
               onChange={(e) => setColor(e.target.value)}
+              aria-label="Edit Book Color"
             />
           </div>
 
-          {/*Correct Password of the book*/}
+          {/*Correct c of the book*/}
           <div>
             <label className="block text-gray-700 font-bold">Password:</label>
             <input
@@ -148,6 +153,7 @@ const EditBook = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              aria-label="Enter Book Password"
             />
             <p className="text-xs text-gray-500 mt-1">
               This password will be used to confirm the update.
@@ -159,6 +165,7 @@ const EditBook = () => {
             {/*Push to books page if cancel*/}
             <button
               type="button"
+              aria-label="Cancel the edit"
               onClick={() => router.push("/books")}
               className="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 transition"
             >
@@ -168,6 +175,7 @@ const EditBook = () => {
             {/*Update the book*/}
             <button
               type="submit"
+              aria-label="Update the book"
               className="bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 transition"
             >
               Update
