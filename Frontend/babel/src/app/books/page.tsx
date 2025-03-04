@@ -29,7 +29,7 @@ const Library = () => {
       })
       .then((data) => setBooks(data))
       .catch((err) => setError(err.message));
-  }, []); //run once mounted
+  }, []); // Run once when mounted
 
   // Filter books by search input
   const filteredBooks = useMemo(() => {
@@ -37,10 +37,11 @@ const Library = () => {
       book.title.toLowerCase().includes(search.toLowerCase()) ||
       book.author.toLowerCase().includes(search.toLowerCase())
     );
-  }, [books, search]); // Run when books or search change
+  }, [books, search]); // useMemo will recalculates when books or search change, no re-rendering
 
   return (
     <main className="relative min-h-screen p-10 flex flex-col items-center">
+
       {/* Background Image */}
       <div className="inset-0 w-full h-full">
         <Image
@@ -51,6 +52,7 @@ const Library = () => {
           priority
         />
       </div>
+
       {/* Title of the web */}
       <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-8 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         The Library of Babel
@@ -67,7 +69,8 @@ const Library = () => {
         />
       </div>
 
-      {/* Display book cards which also are Link, first one will be a create card that will send user to create page and the rest will be book card that if click will send user to that book detail page*/}
+      {/* Display book cards which also are Link, first one will be a create card that will send user to create page 
+          the rest will be book card that if click will send user to that book detail page*/}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-center bg-stone-200 p-8 rounded-lg shadow-2xl border border-gray-800">
         <Link
           href="/books/create"
@@ -76,7 +79,8 @@ const Library = () => {
           <span className="text-6xl">+</span>
           <p className="mt-2 text-sm">Add Your Book</p>
         </Link>
-        {/* Make book card for each book in filteredBooks array and preload the detail page*/}
+
+        {/* Make book card for each book in filteredBooks array and prefetch the detail page*/}
         {filteredBooks.map((book) => (
           <Link key={book.id} href={`/books/${book.id}` } prefetch={true}> 
             <BookCard title={book.title} author={book.author} color={book.color} />

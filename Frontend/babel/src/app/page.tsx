@@ -5,7 +5,8 @@ const Enter = () => {
   return (
     // Main that take up full viewport contain item in flex container and center them
     <main className="relative min-h-screen flex flex-col items-center justify-center text-center p-10">
-      {/* Background Image with Image NextJS optimization */}
+
+      {/* Background Image with NextJS Image optimization */}
       <div className="inset-0 w-full h-full">
         <Image
           src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa859f04f-c4b2-46c4-95a1-ba57ba44d14a_2560x1535.jpeg"
@@ -42,6 +43,7 @@ const Enter = () => {
             Enter the Library
           </button>
         </Link>
+      
       </div>
     </main>
   );

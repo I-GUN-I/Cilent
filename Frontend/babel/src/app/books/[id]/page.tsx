@@ -61,13 +61,14 @@ const BookDetail = () => {
 
       {/* Book details container, get border color from book data*/}
       <div
-        className="relative w-full max-w-3xl p-8 bg-white text-black bg-opacity-70 rounded-lg shadow-xl border border-gray-700 z-10"
+        className="relative w-full max-w-4xl p-8 bg-white text-black bg-opacity-70 rounded-lg shadow-xl border border-gray-700 z-10"
         style={{ borderColor: book.color, borderWidth: '12px' }}
       >
+        
         {/* Error message*/}
         <p className="text-center text-red-500">{error}</p>
 
-        {/* Navigation links (Cancel and Edit)*/}
+        {/* Navigation link, back to books page and go to edit page*/}
         <div className="flex justify-between">
           <Link href="/books" className="text-gray-600 hover:text-gray-800 font-mono">
             &lt; Back

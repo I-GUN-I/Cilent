@@ -15,6 +15,7 @@ const BookCard: React.FC<BookProps> = ({ title, author, color }) => {
     >
       <h3 className="text-shadow text-shadow-y-sm text-shadow-blur-2 text-lg text-white font-bold drop-shadow-xl tracking-wide font-serif">{title}</h3>
       <p className="text-shadow text-shadow-y-md text-shadow-blur-2 text-sm text-white font-medium italic drop-shadow-xl font-serif">by {author}</p>
+      
       {/* Book spine effect */}
       <div className="absolute -left-2 top-1 w-3 h-full bg-gray-900 opacity-40 rounded-l-md"></div>
     </div>

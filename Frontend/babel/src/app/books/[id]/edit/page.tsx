@@ -39,7 +39,7 @@ const EditBook = () => {
     e.preventDefault();
     setError(null);
     const updatedBook = { title, author, content, color, password };
-    // Patch the new data
+    // Patch the new data to API
     fetch(`http://localhost:8000/books/api/${id}/`, {
       method: "PATCH",
       headers: {
@@ -55,7 +55,7 @@ const EditBook = () => {
       })
 
       .then(() => {
-        router.push(`/books/${id}`); // Push to detail page after update
+        router.push(`/books/${id}`); // Push to detail page after update success
       })
       
       .catch((err) => {
@@ -67,6 +67,7 @@ const EditBook = () => {
   return (
     // Edit page for getting update book data, check for password to allow update
     <main className="relative min-h-screen p-10 flex flex-col items-center">
+      {/*Background Image*/}
       <div className="inset-0 w-full h-full">
         <Image
           src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
@@ -80,11 +81,14 @@ const EditBook = () => {
       <h1 className="text-4xl text-[#4a2c29] font-bold text-center mb-11 tracking-wide drop-shadow-lg font-serif border-b border-gray-700 pb-4">
         Edit Book
       </h1>
+      
+      {/*Display error if there're any*/}
       <p className="text-red-500 text-center mb-2">{error}</p>
 
       <div className="relative bg-white text-black bg-opacity-70 p-8 shadow-lg rounded-lg max-w-3xl w-full z-10">
         <form onSubmit={handleSubmit} className="space-y-6">
 
+          {/*Input for Title*/}
           <div>
             <label className="block text-gray-700 font-bold">Title:</label>
             <input
@@ -97,6 +101,7 @@ const EditBook = () => {
             />
           </div>
 
+          {/*Input for Author*/}
           <div>
             <label className="block text-gray-700 font-bold">Author:</label>
             <input
@@ -109,6 +114,7 @@ const EditBook = () => {
             />
           </div>
 
+          {/*Input for Content*/}
           <div>
             <label className="block text-gray-700 font-bold">Content:</label>
             <textarea
@@ -119,7 +125,8 @@ const EditBook = () => {
               required
             />
           </div>
-
+          
+          {/*Input for Color*/}
           <div>
             <label className="block text-gray-700 font-bold">Book Cover Color:</label>
             <input
@@ -131,6 +138,7 @@ const EditBook = () => {
             />
           </div>
 
+          {/*Correct Password of the book*/}
           <div>
             <label className="block text-gray-700 font-bold">Password:</label>
             <input
@@ -144,9 +152,11 @@ const EditBook = () => {
             <p className="text-xs text-gray-500 mt-1">
               This password will be used to confirm the update.
             </p>
-          </div>
-
+          </div>  
+          
           <div className="flex justify-between">
+
+            {/*Push to books page if cancel*/}
             <button
               type="button"
               onClick={() => router.push("/books")}
@@ -155,12 +165,14 @@ const EditBook = () => {
               Cancel
             </button>
 
+            {/*Update the book*/}
             <button
               type="submit"
               className="bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 transition"
             >
               Update
             </button>
+            
           </div>
 
         </form>

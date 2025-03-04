@@ -13,6 +13,29 @@ const CreateBook = () => {
   const [color, setColor] = useState("#ff5733");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null); // Error message
+
+  // Random the text from set of characters with chosen length
+  const randomText = (length: number) => {
+    const characters = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ\n";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  };
+
+  // Random the number between min and max
+  const randomInt = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  // Generate the book 
+  const generateBook = () => {
+    setTitle(randomText(randomInt(8, 24))); // Title with length between 8 to 24 letter
+    setAuthor(randomText(randomInt(4, 18))); // Author name with length between 4 to 18 letter
+    setContent(randomText(randomInt(2500, 5000))); // Content of the book with length between 2500 to 5000 letter
+  };
+
   // If there are data stored in localStorage, set it to Book detail variable
   useEffect(() => {
     const storedCreate = localStorage.getItem('book-create');
@@ -24,14 +47,17 @@ const CreateBook = () => {
       setColor(bookData.color);
     }
   }, []);
+
+
   // Store data in localStorage when title, author, content, color changed
   useEffect(() => {
     const storedCreate = { title, author, content, color };
     localStorage.setItem("book-create", JSON.stringify(storedCreate));
   }, [title, author, content, color]);
 
+  // Action when user submit the form
   const handleSubmit = (e: React.FormEvent) => {
-    localStorage.clear(); //Clear localStorage after submit
+    localStorage.clear(); // Clear localStorage after submit
     e.preventDefault(); // Stop form from reloading the page
     setError(null); // Set error to null
 
@@ -63,6 +89,7 @@ const CreateBook = () => {
   return (
     // Create page for taking User input data
     <main className="relative min-h-screen p-10 flex flex-col items-center">
+      {/* Background Image */}
       <div className="inset-0 w-full h-full">
         <Image
           src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
@@ -79,8 +106,10 @@ const CreateBook = () => {
 
       <p className="text-red-500 text-center mb-2">{error}</p>
 
+      
       <div className="relative bg-white text-black bg-opacity-70 p-8 shadow-lg rounded-lg max-w-3xl w-full z-10">
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/*Input for Title of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Title:</label>
             <input
@@ -93,6 +122,7 @@ const CreateBook = () => {
             />
           </div>
 
+          {/*Input for Author of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Author:</label>
             <input
@@ -107,6 +137,7 @@ const CreateBook = () => {
             />
           </div>
 
+          {/*Input for Content of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Content:</label>
             <textarea
@@ -120,10 +151,11 @@ const CreateBook = () => {
             />
           </div>
 
+          {/*Input for Color of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Book Cover Color:</label>
             <input
-              type="color" 
+              type="color"
               className="h-10 rounded-md w-10 mt-2 focus:ring-2 
               focus:ring-stone-400 focus:outline-none transition duration-200"
               value={color}
@@ -131,6 +163,7 @@ const CreateBook = () => {
             />
           </div>
 
+          {/*Book's Password */}
           <div>
             <label className="block text-gray-700 font-bold">Password:</label>
             <input
@@ -147,8 +180,10 @@ const CreateBook = () => {
               This password will be needed when you want to edit your book.
             </p>
           </div>
-              
+
           <div className="flex justify-between">
+
+            {/*Push user back to books page if cancel*/}
             <button
               type="button"
               onClick={() => router.push("/books")}
@@ -157,12 +192,23 @@ const CreateBook = () => {
               Cancel
             </button>
 
+            {/* Random Book Button */}
+            <button
+              type="button"
+              onClick={generateBook}
+              className="bg-violet-500 text-white py-2 px-4 rounded-md hover:bg-violet-600 transition"
+            >
+              Generate The Book
+            </button>
+
+            {/*Create the book*/}
             <button
               type="submit"
               className="bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 transition"
             >
               Finish
             </button>
+
           </div>
 
         </form>

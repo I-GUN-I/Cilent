@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Book
-
+# Serializer for turning Object to JSON, JSON to Object
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
