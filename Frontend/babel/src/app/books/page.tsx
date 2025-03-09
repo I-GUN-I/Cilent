@@ -4,7 +4,7 @@ import Image from "next/image";
 import BookCard from "@/components/BookCard";
 import Link from "next/link";
 
-// For book object type
+// For Book object type
 interface Book {
   id: number;
   title: string;
@@ -13,18 +13,18 @@ interface Book {
 }
 
 const Library = () => {
-  // Book hold array of book object with empty array as default
+  // books hold array of Book object with empty array as default
   const [books, setBooks] = useState<Book[]>([]);
-  // Error hold error string with Null as default
+  // error hold error string with Null as default
   const [error, setError] = useState<string | null>(null);
-  // Search hold string input from user with empty as default
+  // search hold string input from user with empty as default
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     // Get books json then turn it to object and set any error to be display if it happend
     fetch("http://localhost:8000/books/api/")
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch books"); //Throw error if fail to fetch
+        if (!res.ok) throw new Error("Failed to fetch books"); // Throw error if fail to fetch
         return res.json();
       })
       .then((data) => setBooks(data))
@@ -38,6 +38,10 @@ const Library = () => {
       book.author.toLowerCase().includes(search.toLowerCase())
     );
   }, [books, search]); // useMemo will recalculates when books or search change, no re-rendering
+  
+  const bookNumber = useMemo(() => {
+    return filteredBooks.length;
+  }, [filteredBooks])
 
   return (
     <main className="relative min-h-screen p-10 flex flex-col items-center">
@@ -45,7 +49,7 @@ const Library = () => {
       {/* Background Image */}
       <div className="inset-0 w-full h-full">
         <Image
-          src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
+          src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa859f04f-c4b2-46c4-95a1-ba57ba44d14a_2560x1535.jpeg"
           alt="Library Background"
           fill
           className="opacity-40 blur-md object-cover"
@@ -59,7 +63,7 @@ const Library = () => {
       </h1>
 
       {/* Search bar */}
-      <div className="mb-6 w-full max-w-sm z-20 opacity-30">
+      <div className="mb-6 w-full max-w-sm z-20 opacity-30 flex flex-row items-center">
         <input
           type="text"
           placeholder="Search"
@@ -68,6 +72,7 @@ const Library = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <p className="ml-3 text-black">{bookNumber}</p>
       </div>
 
       {/* Display book cards which also are Link, first one will be a create card that will send user to create page 

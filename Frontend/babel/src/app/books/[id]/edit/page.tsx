@@ -8,7 +8,7 @@ import Image from "next/image";
 const EditBook = () => {
   const router = useRouter();
   const { id } = useParams(); // Get book ID from URL
-  //Book detail data variable  
+  // Book detail data variable  
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
@@ -17,10 +17,10 @@ const EditBook = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/books/api/${id}/`) //Get book detail data
+    fetch(`http://localhost:8000/books/api/${id}/`) // Get book detail data
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch book details"); //Throw error if fail to fetch
+          throw new Error("Failed to fetch book details"); // Throw error if fail to fetch
         }
         return res.json();
       })
@@ -67,7 +67,7 @@ const EditBook = () => {
   return (
     // Edit page for getting update book data, check for password to allow update
     <main className="relative min-h-screen p-10 flex flex-col items-center">
-      {/*Background Image*/}
+      {/* Background Image */}
       <div className="inset-0 w-full h-full">
         <Image
           src="https://images.squarespace-cdn.com/content/v1/59442018bebafb235d0aae1c/1602551093044-TYO6TJP1ZBQ3JKQYY2B6/Desmazieres-biblio-plongeante-sm.jpg"
@@ -83,13 +83,13 @@ const EditBook = () => {
         Edit Book
       </h1>
       
-      {/*Display error if there're any*/}
+      {/* Display error if there're any */}
       <p className="text-red-500 text-center mb-2">{error}</p>
 
       <div className="relative bg-white text-black bg-opacity-70 p-8 shadow-lg rounded-lg max-w-3xl w-full z-10">
         <form onSubmit={handleSubmit} className="space-y-6">
 
-          {/*Input for Title*/}
+          {/* Input for Title */}
           <div>
             <label className="block text-gray-700 font-bold">Title:</label>
             <input
@@ -103,7 +103,7 @@ const EditBook = () => {
             />
           </div>
 
-          {/*Input for Author*/}
+          {/* Input for Author */}
           <div>
             <label className="block text-gray-700 font-bold">Author:</label>
             <input
@@ -117,7 +117,7 @@ const EditBook = () => {
             />
           </div>
 
-          {/*Input for Content*/}
+          {/* Input for Content */}
           <div>
             <label className="block text-gray-700 font-bold">Content:</label>
             <textarea
@@ -130,7 +130,7 @@ const EditBook = () => {
             />
           </div>
           
-          {/*Input for Color*/}
+          {/* Input for Color */}
           <div>
             <label className="block text-gray-700 font-bold">Book Cover Color:</label>
             <input
@@ -143,7 +143,7 @@ const EditBook = () => {
             />
           </div>
 
-          {/*Correct c of the book*/}
+          {/* Correct password of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Password:</label>
             <input
@@ -162,7 +162,7 @@ const EditBook = () => {
           
           <div className="flex justify-between">
 
-            {/*Push to books page if cancel*/}
+            {/* Push to books page if cancel */}
             <button
               type="button"
               aria-label="Cancel the edit"
@@ -172,7 +172,7 @@ const EditBook = () => {
               Cancel
             </button>
 
-            {/*Update the book*/}
+            {/* Update the book */}
             <button
               type="submit"
               aria-label="Update the book"

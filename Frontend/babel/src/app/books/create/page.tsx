@@ -72,7 +72,7 @@ const CreateBook = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to create book"); //Throw error if fail to create
+          throw new Error("Failed to create book"); // Throw error if fail to create
         }
         return res.json();
       })
@@ -82,7 +82,7 @@ const CreateBook = () => {
       })
 
       .catch((err) => {
-        setError(err.message); //Set error if there are any
+        setError(err.message); // Set error if there are any
       });
   };
 
@@ -110,7 +110,7 @@ const CreateBook = () => {
       
       <div className="relative bg-white text-black bg-opacity-70 p-8 shadow-lg rounded-lg max-w-3xl w-full z-10">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/*Input for Title of the book */}
+          {/* Input for Title of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Title:</label>
             <input
@@ -124,7 +124,7 @@ const CreateBook = () => {
             />
           </div>
 
-          {/*Input for Author of the book */}
+          {/* Input for Author of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Author:</label>
             <input
@@ -140,7 +140,7 @@ const CreateBook = () => {
             />
           </div>
 
-          {/*Input for Content of the book */}
+          {/* Input for Content of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Content:</label>
             <textarea
@@ -155,7 +155,7 @@ const CreateBook = () => {
             />
           </div>
 
-          {/*Input for Color of the book */}
+          {/* Input for Color of the book */}
           <div>
             <label className="block text-gray-700 font-bold">Book Cover Color:</label>
             <input
@@ -168,7 +168,7 @@ const CreateBook = () => {
             />
           </div>
 
-          {/*Book's Password */}
+          {/* Book's Password */}
           <div>
             <label className="block text-gray-700 font-bold">Password:</label>
             <input
@@ -189,7 +189,7 @@ const CreateBook = () => {
 
           <div className="flex justify-between">
 
-            {/*Push user back to books page if cancel*/}
+            {/* Push user back to books page if cancel */}
             <button
               type="button"
               aria-label="Cancel" 
@@ -209,7 +209,7 @@ const CreateBook = () => {
               Generate The Book
             </button>
 
-            {/*Create the book*/}
+            {/* Create the book */}
             <button
               type="submit"
               aria-label="Finish writing The Book" 
